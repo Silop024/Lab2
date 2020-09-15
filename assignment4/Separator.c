@@ -38,7 +38,7 @@ void separate(int *a, int length)
       {
          if(a[i] < 0)
             break;
-         if(a[i] > 0 && a[j] < 0)
+         if(a[i] >= 0 && a[j] < 0)
          {
             temp = a[i];
             a[i] = a[j];
@@ -62,7 +62,7 @@ void print(int a[], int length)
 
 int main()
 {
-   int array[] = {-1, -1, 1, 1, -1, -1, 1, 1};
+   int array[] = {-1, -1, 0, 1, -1, -1, 0, 1};
    int length = sizeof(array)/4;
    printf("%d\n", length);
    print(array, length);
