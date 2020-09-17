@@ -1,0 +1,59 @@
+No of elements	Merge Sort Time (ns)	Insertion Sort Time (ns)
+10				13873					2591
+10				39953					7734
+10				13953					2219
+10				14115					2906
+10				13944					2939
+
+Overall insertion sort seems faster for 10 elements
+______________________________________________________________________-
+
+
+100				172611					127252
+100				170316					137995
+100				172714					131477
+100				171585					124869
+100				177426					139658
+
+Overall insertion sort seems faster for 100 elements
+__________________________________________________________________________
+
+
+1000			2057612					15358166
+1000			1534603					11666434
+1000			2204341					13090853
+1000			2778383					21029895
+1000			2309922					11608339
+
+Overall merge sort seems faster for 1000 elements
+____________________________________________________________________________
+
+
+10000			4028323					37718843
+10000			4354383					34992756
+10000			2965864					99042668
+10000			3144300					104327714
+10000			2905878					23557176
+
+Overall merge sort seems faster for 10000 elements
+__________________________________________________________________________________
+
+
+100000			33143359				2255578954
+100000			35792577				2193612313
+100000			32568468				2196521032
+100000			38756418				2298679087
+100000			39844737				2324469300
+
+Overall merge sort seems faster for 100000 elements
+_____________________________________________________________________________________
+
+
+1000000			243392145				234900151880
+1000000			247929647				231106543382
+1000000			248032990				232926221127
+
+My computer asked me to stop forcing it to sort a million elements since insertion sort is too slow, a thousand times slower than merge sort.
+
+Conclusion. Merge sort is better for sorting elements in large data sets while insertion sort is faster for small data sets.
+
