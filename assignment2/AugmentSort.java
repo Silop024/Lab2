@@ -51,10 +51,9 @@ public class AugmentSort
             print(array);
             //Move the hole one step down the array
             hole--;
-         }
-         //Check if we entered the while loop and increment swap if so
-         if(hole != current)
+            //Increment number of swaps
             swaps++;
+         }
          //Put the stored value in the hole
          array[hole] = number;
          //Increment current to inspect the next element
