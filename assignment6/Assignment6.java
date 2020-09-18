@@ -1,5 +1,6 @@
 /*README
-**
+**Author Jack Webb 2020-09-17
+Last updated 2020-09-18
 **
 **
 **
@@ -21,60 +22,60 @@ public class Assignment6
    static long insertEnd;
    static long insertTime;
 
-   private static final int CUTOFF = 10;
+   private static final int CUTOFF = 30;
 
    public static int[] merge(int[] left, int[] right)
    {
+        //Create array in which the two subarrays are to be inserted
         int[] array = new int[left.length + right.length];
+        //Indices for the three arrays
+        int leftIndex = 0;
+        int rightIndex = 0;
         int i = 0;
-        int j = 0;
-        int k = 0;
-        while(i < left.length && j < right.length)
+
+        //While both subarrays are not saturated, compare the elements in each
+        //of their indices and put in the smalles of them in the array in
+        //ascending order
+        while(leftIndex < left.length && rightIndex < right.length)
         {
-            if(left[i] <= right[j])
-            {
-                array[k] = left[i];
-                //System.out.println("Putting index " + i + " in left into array")
-                i++;
-            }
+            if(left[leftIndex] <= right[rightIndex])
+                array[i++] = left[leftIndex++];
             else
-            {
-                array[k] = right[j];
-                j++;
-            }
-            k++;
+                array[i++] = right[rightIndex++];
         }
 
-        while(i < left.length)
-        {
-            array[k] = left[i];
-            i++;
-            k++;
-        }
-        while(j < right.length)
-        {
-            array[k] = right[j];
-            j++;
-            k++;
-        }
+        //When one of the subarrays has been saturated, it will enter one of
+        //these while loops, depending on which subarray is not fully saturated.
+        //It will insert the remaining elements of that subarray directly into
+        //the array.
+        while(leftIndex < left.length)
+            array[i++] = left[leftIndex++];
+
+        while(rightIndex < right.length)
+            array[i++] = right[rightIndex++];
+        //Return a sorted and merged array
         return array;
    }
 
    public static int[] mergeSort(int[] array)
    {
+        //If only 1 or less elements, no need to sort, return it
         if(array.length <= 1)
             return array;
+        //If number of elements are less than desired cut-off to insertion sort,
+        //do insertion sort and return.
         if(array.length < CUTOFF)
         {
             insertionSort(array);
             return array;
         }
-
+        //Finding the middle to divide the array
         int mid = (array.length)/2;
-        //Creating subarrays
+        //Creating subarrays for each side
         int[] left = new int[mid];
         int[] right = new int[array.length - mid];
 
+        //Filling the subarrays with the contents of the bigger array
         for(int i = 0, j = 0; i < array.length; i++)
         {
             if(i < mid)
@@ -82,9 +83,10 @@ public class Assignment6
             else
                 right[j++] = array[i];
         }
+        //Recursive calls to split the arrays further, starting with the left
         left = mergeSort(left);
         right = mergeSort(right);
-
+        //Return a merged and sorted array
         return merge(left, right);
    }
 
@@ -143,8 +145,9 @@ public class Assignment6
       mergeSort(array1);
       mergeEnd = System.nanoTime();
       mergeTime = mergeEnd - mergeStart;
-      System.out.println(Arrays.toString(array1));
+      System.out.println(Arrays.toString(mergeSort(array1)));
       System.out.println("Time to execute mergesort: " + mergeTime);
+      System.out.println();
 
       insertStart = System.nanoTime();
       insertionSort(array2);
@@ -152,28 +155,35 @@ public class Assignment6
       insertTime = insertEnd - insertStart;
       System.out.println(Arrays.toString(array2));
       System.out.println("Time to execute insertsort: " + insertTime);
+      System.out.println();
 
       /********TEN ELEMENTS******/
       //Initializing and filling the arrays
-      // int[] ten1       = new int[10];
-      // int[] ten2       = new int[10];
-      // filler(ten1, ten2);
-      // //Merge sorting the array while timing it
-      // mergeStart = System.nanoTime();
-      // mergeSort(ten1);
-      // mergeEnd = System.nanoTime();
-      // mergeTime = mergeEnd - mergeStart;
-      //
-      // //Insertion sorting the array while timing it
-      // insertStart = System.nanoTime();
-      // insertionSort(ten2);
-      // insertEnd = System.nanoTime();
-      // insertTime = insertEnd - insertStart;
-      //
-      // //Printing the time it took for each sorting algorithm
-      // System.out.println("Ten elements");
-      // System.out.println
-      // ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      int[] ten1       = new int[10];
+      int[] ten2       = new int[10];
+      filler(ten1, ten2);
+      System.out.println(Arrays.toString(ten1));
+      //Merge sorting the array while timing it
+      mergeStart = System.nanoTime();
+      mergeSort(ten1);
+      mergeEnd = System.nanoTime();
+      mergeTime = mergeEnd - mergeStart;
+      System.out.println(Arrays.toString(mergeSort(ten1)));
+      System.out.println();
+
+      //Insertion sorting the array while timing it
+      insertStart = System.nanoTime();
+      insertionSort(ten2);
+      insertEnd = System.nanoTime();
+      insertTime = insertEnd - insertStart;
+      System.out.println(Arrays.toString(ten2));
+      System.out.println();
+
+      //Printing the time it took for each sorting algorithm
+      System.out.println("Ten elements");
+      System.out.println
+      ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      System.out.println();
 
       /******A HUNDRED ELEMENTS*******/
       int[] hundred1   = new int[100];
@@ -193,6 +203,7 @@ public class Assignment6
       System.out.println("Hundred elements");
       System.out.println
       ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      System.out.println();
 
       /******A THOUSAND ELEMENTS********/
       int[] thousand1  = new int[1000];
@@ -212,6 +223,7 @@ public class Assignment6
       System.out.println("A thousand elements");
       System.out.println
       ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      System.out.println();
 
       /********TEN THOUSAND ELEMENTS******/
       int[] tt1        = new int[10000];
@@ -231,6 +243,7 @@ public class Assignment6
       System.out.println("Ten thousand elements");
       System.out.println
       ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      System.out.println();
 
       /******HUNDRED THOUSAND ELEMENTS********/
       int[] ht1        = new int[100000];
@@ -250,6 +263,7 @@ public class Assignment6
       System.out.println("Hundred thousand elements");
       System.out.println
       ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      System.out.println();
 
       /*******A MILLION ELEMENTS**********/
       int[] million1   = new int[1000000];
@@ -272,5 +286,6 @@ public class Assignment6
       System.out.println("A million elements");
       System.out.println
       ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      System.out.println();
    }
 }

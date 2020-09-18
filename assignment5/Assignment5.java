@@ -1,6 +1,6 @@
 /*README
-**
-**
+**Author Jack Webb 2020-09-17
+**Last updated 2020-09-18
 **
 **
 **
@@ -32,7 +32,6 @@ public class Assignment5
             if(left[i] <= right[j])
             {
                 array[k] = left[i];
-                //System.out.println("Putting index " + i + " in left into array")
                 i++;
             }
             else
