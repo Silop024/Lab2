@@ -23,30 +23,38 @@ public class Extra3
     {
        if(low < high)
        {
-          int p = partition(array, low, high);
-          quickSortP(array, low, p - 1);
-          quickSortP(array, p + 1, high);
+            //Our partitioning index, array[p] is sorted
+            int p = partition(array, low, high);
+            //Recursive call for elements before p
+            quickSortP(array, low, p - 1);
+            //Recursive call for elements after p
+            quickSortP(array, p + 1, high);
        }
     }
 
     public static int partition(int[] array, int low, int high)
     {
-        //Pivot element
-        int pivot = array[high];
-        //Partitioning item
-        int i = low;
-        int j;
+        //Pivot element, the element to be sorted
+        int pivot = array[low];
+        //Partitioning index
+        int i = high;
 
-       for(j = low; j < high; j++)
-       {
-          if(array[j] < pivot)
-          {
-             swap(array, i, j);
-             i++;
-          }
-       }
-       swap(array, i, high);
-       return i;
+        //Traverse the array from high to low
+        for(int j = high; j > low; j--)
+        {
+            //If current element is larger than pivot, swap elements in indices
+            //i and j, then decrement i.
+            if(array[j] > pivot)
+            {
+                swap(array, i, j);
+                i--;
+            }
+        }
+
+        //Put pivot element where it belongs
+        swap(array, i, low);
+        //Return the partitioning index to move subarray
+        return i;
     }
 
 
@@ -91,9 +99,9 @@ public class Extra3
         //it entered the first and last if.
         int pivot = array[high];
         int i = low;
-        int j;
 
-        for(j = low; j < high; j++)
+
+        for(int j = low; j < high; j++)
         {
             if(array[j] < pivot)
             {

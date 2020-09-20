@@ -82,8 +82,11 @@ public class Extra2
    {
       if(low < high)
       {
+          //Our partitioning index, array[p] is sorted
          int p = partition(array, low, high);
+         //Recursive call for elements before p
          quickSort(array, low, p - 1);
+         //Recursive call for elements after p
          quickSort(array, p + 1, high);
       }
    }
@@ -98,20 +101,26 @@ public class Extra2
 
    public static int partition(int[] array, int low, int high)
    {
-      int pivot = array[high];
-      int i = low;
-      int j;
+       //Pivot element, the element to be sorted
+       int pivot = array[high];
+       //Partitioning index
+       int i = low;
 
-      for(j = low; j < high; j++)
-      {
-         if(array[j] < pivot)
-         {
-            swap(array, i, j);
-            i++;
-         }
-      }
-      swap(array, i, high);
-      return i;
+       //Traverse the array from low to high.
+       for(int j = low; j < high; j++)
+       {
+            //If current element is smaller than pivot, swap elements in indices
+            //i and j, then increment i.
+            if(array[j] < pivot)
+            {
+                swap(array, i, j);
+                i++;
+            }
+        }
+        //Put pivot element where it belongs
+        swap(array, i, high);
+        //Return the partitioning index to move subarray
+        return i;
    }
 
    public static void filler(int[] array1, int[] array2)
