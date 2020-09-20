@@ -18,9 +18,6 @@ public class Assignment6
    static long mergeStart;
    static long mergeEnd;
    static long mergeTime;
-   static long insertStart;
-   static long insertEnd;
-   static long insertTime;
 
    private static final int CUTOFF = 30;
 
@@ -121,18 +118,31 @@ public class Assignment6
          current++;
       }
    }
-
+   //To compare insertionSort and mergeSort fairly, this method fills two
+   //arrays with the same elements. One for each sorting method.
    public static void filler(int[] array1, int[] array2)
    {
+      //Index for arrays
       int i = 0;
+      //The lowest and highest values of the elements
+      //(highest = high - 1), (lowest = low)
       int low = -99;
       int high = 100;
+
+      //Create the random number generator
       Random r = new Random();
       while(i < array1.length)
       {
+         //nextInt returns a pseudorandom int between 0 and exclusive
+         //(value in parentheses)
+         //(high - low) makes it a value between, in this case, 0-198. To make
+         //sure we get the desired -99 to 99 we then add -99 to each random int
+         //which takes it from 0-198 to -99 - 99
          int n = r.nextInt(high - low) + low;
+         //Insert the randomly generated int into the arrays
          array1[i] = n;
          array2[i] = n;
+         //Increment index
          i++;
       }
    }
@@ -146,15 +156,7 @@ public class Assignment6
       mergeEnd = System.nanoTime();
       mergeTime = mergeEnd - mergeStart;
       System.out.println(Arrays.toString(mergeSort(array1)));
-      System.out.println("Time to execute mergesort: " + mergeTime);
-      System.out.println();
-
-      insertStart = System.nanoTime();
-      insertionSort(array2);
-      insertEnd = System.nanoTime();
-      insertTime = insertEnd - insertStart;
-      System.out.println(Arrays.toString(array2));
-      System.out.println("Time to execute insertsort: " + insertTime);
+      System.out.println("Time to execute mergesort: " + mergeTime + " ns");
       System.out.println();
 
       /********TEN ELEMENTS******/
@@ -171,18 +173,11 @@ public class Assignment6
       System.out.println(Arrays.toString(mergeSort(ten1)));
       System.out.println();
 
-      //Insertion sorting the array while timing it
-      insertStart = System.nanoTime();
-      insertionSort(ten2);
-      insertEnd = System.nanoTime();
-      insertTime = insertEnd - insertStart;
-      System.out.println(Arrays.toString(ten2));
-      System.out.println();
 
       //Printing the time it took for each sorting algorithm
       System.out.println("Ten elements");
       System.out.println
-      ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      ("Time to execute mergesort: " + mergeTime/1000 + " us");
       System.out.println();
 
       /******A HUNDRED ELEMENTS*******/
@@ -195,14 +190,9 @@ public class Assignment6
       mergeEnd = System.nanoTime();
       mergeTime = mergeEnd - mergeStart;
 
-      insertStart = System.nanoTime();
-      insertionSort(hundred2);
-      insertEnd = System.nanoTime();
-      insertTime = insertEnd - insertStart;
-
       System.out.println("Hundred elements");
       System.out.println
-      ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      ("Time to execute mergesort: " + mergeTime/1000 + " us");
       System.out.println();
 
       /******A THOUSAND ELEMENTS********/
@@ -215,14 +205,9 @@ public class Assignment6
       mergeEnd = System.nanoTime();
       mergeTime = mergeEnd - mergeStart;
 
-      insertStart = System.nanoTime();
-      insertionSort(thousand2);
-      insertEnd = System.nanoTime();
-      insertTime = insertEnd - insertStart;
-
       System.out.println("A thousand elements");
       System.out.println
-      ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      ("Time to execute mergesort: " + mergeTime/1000 + " us");
       System.out.println();
 
       /********TEN THOUSAND ELEMENTS******/
@@ -235,14 +220,9 @@ public class Assignment6
       mergeEnd = System.nanoTime();
       mergeTime = mergeEnd - mergeStart;
 
-      insertStart = System.nanoTime();
-      insertionSort(tt2);
-      insertEnd = System.nanoTime();
-      insertTime = insertEnd - insertStart;
-
       System.out.println("Ten thousand elements");
       System.out.println
-      ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      ("Time to execute mergesort: " + mergeTime/1000 + " us");
       System.out.println();
 
       /******HUNDRED THOUSAND ELEMENTS********/
@@ -255,37 +235,24 @@ public class Assignment6
       mergeEnd = System.nanoTime();
       mergeTime = mergeEnd - mergeStart;
 
-      insertStart = System.nanoTime();
-      insertionSort(ht2);
-      insertEnd = System.nanoTime();
-      insertTime = insertEnd - insertStart;
-
       System.out.println("Hundred thousand elements");
       System.out.println
-      ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      ("Time to execute mergesort: " + mergeTime/1000 + " us");
       System.out.println();
 
       /*******A MILLION ELEMENTS**********/
       int[] million1   = new int[1000000];
       int[] million2   = new int[1000000];
       filler(million1, million2);
-      System.out.println("Filled with a million integers");
 
       mergeStart = System.nanoTime();
       mergeSort(million1);
       mergeEnd = System.nanoTime();
       mergeTime = mergeEnd - mergeStart;
-      System.out.println("Mergesort done");
-      System.out.println("Mergesort time: " + mergeTime);
-
-      insertStart = System.nanoTime();
-      // insertionSort(million2);
-      insertEnd = System.nanoTime();
-      insertTime = insertEnd - insertStart;
 
       System.out.println("A million elements");
       System.out.println
-      ("Time to execute mergesort/insertionsort: " + mergeTime+"/ "+insertTime);
+      ("Time to execute mergesort: " + mergeTime/1000 + " us");
       System.out.println();
    }
 }
