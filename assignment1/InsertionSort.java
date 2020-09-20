@@ -58,7 +58,6 @@ public class InsertionSort
       }
       //Print the array and number of swaps when all is done
       print(array);
-      System.out.println("Number of swaps: " + swaps);
    }
 
    //Print each element in the array with a newline after.
@@ -84,16 +83,9 @@ public class InsertionSort
 
       System.out.println("Input:");
 
-      //Almost same code as Lab 1 assignment 2
-      //I didnt want to input one integer at a time
-      //Had to add -48 because of ASCII values
-      InputStreamReader input = new InputStreamReader(System.in);
-      int number = (input.read() - 48);
-
-      while((i < size) && !(number == '\n'))
+      while(i < arr.length)
       {
-         arr[i++] = number;
-         number = (input.read() - 48);
+         arr[i++] = in.nextInt();
       }
 
       System.out.println("Before insertionSort:");
