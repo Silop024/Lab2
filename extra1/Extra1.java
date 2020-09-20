@@ -6,13 +6,13 @@ public class Extra1
    public static void insertionSort(int[] array)
    {
       //Local variable used to index the currently inspected element
-      int current = array.length - 2;
+      int current = 1;
       //Local variable used to index the hole
       int hole;
       //Local variable used to store the value of the current element
       int number;
 
-      while(current > 0)
+      while(current <= array.length - 1)
       {
          //Store the value of the current element
          number = array[current];
@@ -20,19 +20,30 @@ public class Extra1
          hole = current;
 
          //The inner loop
-         while(((array.length - 1) > hole) && (number < array[hole + 1]))
+         while((0 < hole) && (number < array[hole - 1]))
          {
             //Move the current one step down the array
-            array[hole] = array[hole + 1];
+            array[hole] = array[hole - 1];
             //Print the array after every inner loop iteration
             print(array);
             //Move the hole one step down the array
-            hole++;
+            hole--;
          }
          //Put the stored value in the hole
          array[hole] = number;
          //Increment current to inspect the next element
-         current--;
+         current++;
+      }
+      //Since we manipualte two elements at a time we only need to go through
+      //half the size of the array.
+      for(int i = 0; i < array.length/2; i++)
+      {
+         //Store values of both a[i] and a[len - 1 - i] in a[i] to use later
+         array[i] = array[i] + array[array.length - 1 - i];
+         //Put a[i] in a[len - 1 - i]
+         array[array.length - 1 - i] = array[i] - array[array.length - 1 - i];
+         //Put a[len - 1 - i] in a[i]
+         array[i] = array[i] - array[array.length - 1 - i];
       }
       //Print the array and number of swaps when all is done
       print(array);
@@ -61,16 +72,9 @@ public class Extra1
 
       System.out.println("Input:");
 
-      //Almost same code as Lab 1 assignment 2
-      //I didnt want to input one integer at a time
-      //Had to add -48 because of ASCII values
-      InputStreamReader input = new InputStreamReader(System.in);
-      int number = (input.read() - 48);
-
-      while((i < size) && !(number == '\n'))
+      while(i < arr.length)
       {
-         arr[i++] = number;
-         number = (input.read() - 48);
+         arr[i++] = in.nextInt();
       }
 
       System.out.println("Before insertionSort:");
